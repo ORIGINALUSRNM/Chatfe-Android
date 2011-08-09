@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Welcome to Chatfe!</string>
+    <string name="app_name">Chatfe</string>
+    <string name="topic">Default Topic</string>
+    <string name="updateUrl">http://www.jhorn.net</string>
+</resources>
