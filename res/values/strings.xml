@@ -2,6 +2,9 @@
 <resources>
     <string name="hello">Welcome to Chatfe!</string>
     <string name="app_name">Chatfe</string>
-    <string name="topic">Default Topic</string>
+    <string name="topic">Open Topic Chat!</string>
     <string name="updateUrl">http://www.jhorn.net</string>
+    <string name="textId">topicText</string>
+    <string name="imgId">chatfe_img</string>
+    <string name="talkbtnId">talkBtn</string>
 </resources>

@@ -18,7 +18,7 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         screenDpi = getScreenDpi();
         sDpi = Integer.toString(screenDpi);
-        Log.e(TAG, sDpi);
+        //Log.e(TAG, sDpi);
         setContentView(R.layout.main);
         final int welcomeScreenTime = 3000;
         Thread welcomeThread = new Thread(){

@@ -47,12 +47,15 @@ public class ChatfeProvider extends ContentProvider{
 		// phone#, density and encryption key.
 		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.PHONE, AuthenticateTableMetaData.PHONE);
 		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.SCREEN_DENSITY, AuthenticateTableMetaData.SCREEN_DENSITY);
+		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.SCREEN_WIDTH, AuthenticateTableMetaData.SCREEN_WIDTH);
+		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.SCREEN_HEIGHT, AuthenticateTableMetaData.SCREEN_HEIGHT);
 		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.ENCRYPT_KEY, AuthenticateTableMetaData.ENCRYPT_KEY);
 		
 		//created and modified date 
 		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.ENCRYPT_KEY, AuthenticateTableMetaData.ENCRYPT_KEY);
 		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.CREATED_DATE, AuthenticateTableMetaData.CREATED_DATE);
 		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.MODIFIED_DATE, AuthenticateTableMetaData.MODIFIED_DATE);
+		sAuthenticateProjectionMap.put(AuthenticateTableMetaData.AVAILABLE, AuthenticateTableMetaData.AVAILABLE);
 		
 		
 		
@@ -94,7 +97,7 @@ public class ChatfeProvider extends ContentProvider{
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			
-			db.execSQL("CREATE TABLE" + TopicTableMetaData.TABLE_NAME + " ("
+			db.execSQL("CREATE TABLE " + TopicTableMetaData.TABLE_NAME + " ("
 					+ ChatfeProviderMetaData.TopicTableMetaData._ID
 					+ " INTEGER PRIMARY KEY,"
 					+ TopicTableMetaData.TOPIC + " TEXT,"
@@ -105,14 +108,17 @@ public class ChatfeProvider extends ContentProvider{
 					+ TopicTableMetaData.MODIFIED_DATE + " INTEGER"
 					+ ");");
 			
-			db.execSQL("CREATE TABLE" + AuthenticateTableMetaData.TABLE_NAME + " ("
+			db.execSQL("CREATE TABLE " + AuthenticateTableMetaData.TABLE_NAME + " ("
 					+ ChatfeProviderMetaData.AuthenticateTableMetaData._ID 
 					+ " INTEGER PRIMARY KEY,"
 					+ AuthenticateTableMetaData.PHONE + " TEXT,"
 					+ AuthenticateTableMetaData.SCREEN_DENSITY + " TEXT,"
+					+ AuthenticateTableMetaData.SCREEN_WIDTH + " INTEGER,"
+					+ AuthenticateTableMetaData.SCREEN_HEIGHT + " INTEGER,"
 					+ AuthenticateTableMetaData.ENCRYPT_KEY + " TEXT,"
 					+ AuthenticateTableMetaData.CREATED_DATE + " INTEGER,"
-					+ AuthenticateTableMetaData.MODIFIED_DATE + " INTEGER"
+					+ AuthenticateTableMetaData.MODIFIED_DATE + " INTEGER,"
+					+ AuthenticateTableMetaData.AVAILABLE + " INTEGER"
 					+ ");");
 			
 		}
@@ -180,8 +186,8 @@ public class ChatfeProvider extends ContentProvider{
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
-		//validate uri
-		if(sUriMatcher.match(uri) != INCOMING_TOPIC_COLLECTION_URI_INDICATOR || 
+		//validate uri  
+		if(sUriMatcher.match(uri) != INCOMING_TOPIC_COLLECTION_URI_INDICATOR && 
 		   sUriMatcher.match(uri) != INCOMING_AUTHENTICATE_COLLECTION_URI_INDICATOR	){
 			throw new IllegalArgumentException("Unknown URI " + uri);
 			
@@ -206,7 +212,7 @@ public class ChatfeProvider extends ContentProvider{
 					
 				}
 				if(values.containsKey(TopicTableMetaData.LOCAL_IMG_URI) == false){
-					throw new SQLException("Failed to insert row because must provide local img uri. " + uri);
+					values.put(TopicTableMetaData.LOCAL_IMG_URI, "");
 					
 				}
 				
@@ -240,9 +246,21 @@ public class ChatfeProvider extends ContentProvider{
 				throw new SQLException("Failed to insert row because must provide density. " + uri);
 				
 			}
-			if(values.containsKey(AuthenticateTableMetaData.ENCRYPT_KEY) == false){
-				throw new SQLException("Failed to insert row because must provide encryption key. " + uri);
+			if(values.containsKey(AuthenticateTableMetaData.SCREEN_WIDTH) == false){
+				throw new SQLException("Failed to insert row because must provide width. " + uri);
 				
+			}
+			if(values.containsKey(AuthenticateTableMetaData.SCREEN_HEIGHT) == false){
+				throw new SQLException("Failed to insert row because must provide height. " + uri);
+				
+			}
+			if(values.containsKey(AuthenticateTableMetaData.ENCRYPT_KEY) == false){
+				values.put(AuthenticateTableMetaData.ENCRYPT_KEY, "");
+				
+			}
+			if(values.containsKey(AuthenticateTableMetaData.AVAILABLE) == false){
+				
+				values.put(AuthenticateTableMetaData.AVAILABLE, "no");
 			}
 			
 			SQLiteDatabase db = mOpenHelper.getWritableDatabase();

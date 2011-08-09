@@ -7,16 +7,21 @@
 	<uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+    <application 
+    	android:icon="@drawable/icon" 
+    	android:label="@string/app_name">
         <activity android:name=".StartActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
         <service android:name=".UpdateService" />
+        <service android:name=".TalkUpdaterService" />
+        <service android:name=".PresenceMonitorService" />
         <provider android:name="ChatfeProvider"
         	android:authorities="com.chatfe.ChatfeProvider" />
 

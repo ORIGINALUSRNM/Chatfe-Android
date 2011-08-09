@@ -52,9 +52,12 @@ public class ChatfeProviderMetaData {
 		// additional columns
 		public static final String PHONE = "phone";
 		public static final String  SCREEN_DENSITY = "screen_density";
+		public static final String  SCREEN_WIDTH = "screen_width";
+		public static final String  SCREEN_HEIGHT = "screen_height";
 		public static final String ENCRYPT_KEY = "encrypt_key";
 		public static final String CREATED_DATE = "created";
 		public static final String MODIFIED_DATE = "modified";
+		public static final String AVAILABLE = "no";
 		
 		
 		

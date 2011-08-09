@@ -1,0 +1,20 @@
+/* 
+	Author: Jason Hornbuckle
+	Chatfe Android app
+
+*/
+Functionality of app: 
+1. Gets phone number of phone. 
+2. Sends # to Chatfe server using api: "http://api.chatfe.com?ses=[phonenumber]&topicAPI"
+3. If successful, receives xml in following form: 
+	<topic>
+		<topicText></topicText>
+		<topicImgUrl></topicImgUrl>
+	</topic>
+4. parses xml, db and updates UI. 
+5. Uses the following additional api: 
+	- to indicate user is available to chat: "http://api.chatfe.com?rt=start"
+	-to indicate user is not available to chat: "http://api.chatfe.com?rt=stop"
+	
+	
+
